@@ -44,7 +44,8 @@ hold on;
 title('Histogram Of Lower Bound of CI');
 xlabel('Lower Values');
 ylabel('Count Of Frequencies');
-histogram(ci_bootstrap(1, :),FaceColor="red")
+histogram(ci_bootstrap(1, :),FaceColor="red");
+legend('CI','Bootstrap CI');
 hold off;
 
 
@@ -56,6 +57,7 @@ title('Histogram Of Upper Bound of CI');
 xlabel('Upper Values');
 ylabel('Count Of Frequencies');
 histogram(ci_bootstrap(2, :),FaceColor='red');
+legend('CI','Bootstrap CI');
 hold off;
 
 %------------------------ Question (b) -------------------------------
@@ -97,7 +99,8 @@ hold on;
 title('Histogram Of Lower Bound of CI');
 xlabel('Lower Values');
 ylabel('Count Of Frequencies');
-histogram(ci_bootstrap(1, :),FaceColor="red")
+histogram(ci_bootstrap(1, :),FaceColor="red");
+legend('CI','Bootstrap CI');
 hold off;
 
 
@@ -109,6 +112,7 @@ title('Histogram Of Upper Bound of CI');
 xlabel('Upper Values');
 ylabel('Count Of Frequencies');
 histogram(ci_bootstrap(2, :),FaceColor='red');
+legend('CI','Bootstrap CI');
 hold off;
 
 
