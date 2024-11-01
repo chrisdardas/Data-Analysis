@@ -46,8 +46,20 @@ for i=1:M
     permutation_means = sort(permutation_means, 2);
     bootstrap_means = sort(bootstrap_means, 2);
 
-    r1 = find(permutation_means == (xbar(i) -ybar(i)), 1);
+    r1 = find(permutation_means == (xbar(i) -ybar(i)));
     r2 = find(bootstrap_means == (xbar(i) -ybar(i)));
+
+    if r1 == (B+1)
+        r1 = ceil((B+1)/2);
+    elseif length(r1) >= 2
+        r1 = r1(unirnd(length(r1)));
+    end
+
+    if r2 == (B+1)
+        r2 = ceil((B+1)/2);
+    elseif length(r2) >= 2
+        r2 = r2(unirnd(length(r2)));
+    end
 
     if r1 >= lower_limit && r1 <= upper_limit
         h_permute(i,1) = 0;
@@ -63,7 +75,7 @@ for i=1:M
 end
 
 prob_parametric  = 1 - sum(h_values, 2) / M;
-prob_bootstrap    = 1 - sum(h_bootstrap, 1) / M;
+prob_bootstrap   = 1 - sum(h_bootstrap, 1) / M;
 prob_permutation = 1 - sum(h_permute, 1) / M;
 
 fprintf("The real mean value is with probability %.2f in the 95%% confidence interval(Parametric)\n", prob_parametric);

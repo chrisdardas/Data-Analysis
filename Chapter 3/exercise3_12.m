@@ -83,6 +83,12 @@ for i=1:M
 
     r = find(bootstrap_diff == (xbar(i) - ybar(i)));
 
+    if r == (B + 1)
+        r = ceil((B+1)/2);
+    elseif length(r) >= 2
+        r = r(unirnd(length(r)));
+    end
+
     if r >= lower_limit && r <= upper_limit
         h_bootstrap(i) = 0;
     else

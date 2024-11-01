@@ -46,6 +46,9 @@ bootstrap_means_2 = zeros(1, B+1);
 p_values_bootstrap_1 = zeros(M, 1);
 p_values_bootstrap_2 = zeros(M, 1);
 
+p_values_bootstrap_1_second = zeros(M, 1);
+p_values_bootstrap_2_second = zeros(M, 1);
+
 h_values_bootstrap_1 = zeros(M, 1);
 h_values_bootstrap_2 = zeros(M, 1);
 
@@ -71,6 +74,30 @@ for i=1:M
 
     p_values_bootstrap_1(i, 1) = (sum(abs(bootstrap_means_1 - mu_array(1)) >= abs(x_bar(i) - mu_array(1))) / (B + 1)); 
     p_values_bootstrap_2(i, 1) = (sum(abs(bootstrap_means_1 - mu_array(2)) >= abs(x_bar(i) - mu_array(2))) / (B + 1));
+
+    if r1 == (B+1)
+        r1 = ceil((B+1)/2);
+    elseif length(r1) >= 2
+        r1 = r1(unirnd(length(r1)));
+    end
+
+    if r1 > 0.5 * (B+1)
+        p_values_bootstrap_1_second(i, 1) = 2*(1 - r1 / (B+1));
+    else
+        p_values_bootstrap_1_second(i, 1) = 2 * r1 / (B + 1);
+    end
+
+    if r2 > 0.5 * (B + 1)
+        p_values_bootstrap_2_second(i, 1) = 2 * (1 - r2 / (B + 1));
+    else
+        p_values_bootstrap_2_second(i, 1) = 2 * r2/(B+1);
+    end
+
+    if r2 == (B+1)
+        r2 = ceil((B+1)/2);
+    elseif length(r2) >= 2
+        r2 = r2(unirnd(length(r2)));
+    end
 
     if r1 >= lower_limit && r1 <= upper_limit
         h_values_bootstrap_1(i, 1) = 0;
@@ -151,6 +178,30 @@ for i=1:M
 
     p_values_bootstrap_1(i, 1) = (sum(abs(bootstrap_means_1 - mu_array_new(1)) >= abs(y_bar(i) - mu_array_new(1))) / (B + 1)); 
     p_values_bootstrap_2(i, 1) = (sum(abs(bootstrap_means_1 - mu_array_new(2)) >= abs(y_bar(i) - mu_array_new(2))) / (B + 1));
+
+    if r1 == (B+1)
+        r1 = ceil((B+1)/2);
+    elseif length(r1) >= 2
+        r1 = r1(unirnd(length(r1)));
+    end
+
+    if r2 == (B+1)
+        r2 = ceil((B+1)/2);
+    elseif length(r2) >= 2
+        r2 = r2(unirnd(length(r2)));
+    end
+
+    if r1 > 0.5 * (B+1)
+        p_values_bootstrap_1_second(i, 1) = 2*(1 - r1 / (B+1));
+    else
+        p_values_bootstrap_1_second(i, 1) = 2 * r1 / (B + 1);
+    end
+
+    if r2 > 0.5 * (B + 1)
+        p_values_bootstrap_2_second(i, 1) = 2 * (1 - r2 / (B + 1));
+    else
+        p_values_bootstrap_2_second(i, 1) = 2 * r2/(B+1);
+    end
 
     if r1 >= lower_limit && r1 <= upper_limit
         h_values_bootstrap_1(i, 1) = 0;
