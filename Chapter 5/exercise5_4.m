@@ -52,13 +52,13 @@ fprintf("95%% Confidence Interval for b0 is : [%.4f, %.4f]\n", b0_ci(1), b0_ci(2
 %------------------------------ Question (c) ------------------------------
 x_value = 1.29;
 % Confidence Interval for the mean value of Y
-y_ci(1) = mean(y_estimator, 1) - t_value * s_e * sqrt(1/n + (x_value - mean_x)^2 / S_xx);
-y_ci(2) = mean(y_estimator, 1) + t_value * s_e * sqrt(1/n + (x_value - mean_x)^2 / S_xx);
+y_ci(1, :) = y_estimator - t_value * s_e * sqrt(1/n + (x_value - mean_x)^2 / S_xx);
+y_ci(2, :) = y_estimator + t_value * s_e * sqrt(1/n + (x_value - mean_x)^2 / S_xx);
 fprintf("95%% Confidence Interval for Y for x=%.2f is : [%.4f, %.4f]\n", x_value, y_ci(1), y_ci(2));
 
 % Confidence Interval for a value of y
-y_obs_ci(1) = mean(y_estimator, 1) - t_value * s_e * sqrt(1 + 1/n + (x_value - mean_x)^2 / S_xx);
-y_obs_ci(2) = mean(y_estimator, 1) + t_value * s_e * sqrt(1 + 1/n + (x_value - mean_x)^2 / S_xx);
+y_obs_ci(1, :) = y_estimator - t_value * s_e * sqrt(1 + 1/n + (x_value - mean_x)^2 / S_xx);
+y_obs_ci(2, :) = y_estimator + t_value * s_e * sqrt(1 + 1/n + (x_value - mean_x)^2 / S_xx);
 fprintf("95%% Confidence Interval for an observation y of Y for x=%.2f is : [%.4f, %.4f]\n", x_value, y_obs_ci(1), y_obs_ci(2));
 
 figure("Name", "Regression Line");
@@ -68,6 +68,10 @@ plot(x, y_estimator, 'r');
 xlabel("Air Density");
 ylabel("Light Speed");
 title("Regression Line");
+plot(x, y_ci(1, :))
+plot(x, y_ci(2, :))
+plot(x, y_obs_ci(1, :))
+plot(x, y_obs_ci(2, :))
 % yline(y_ci(1), LineWidth=2, Color='red');
 % yline(y_ci(2), LineWidth=2, Color='red');
 % yline(y_obs_ci(1), LineWidth=2, Color='green');
